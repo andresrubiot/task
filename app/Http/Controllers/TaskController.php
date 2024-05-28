@@ -11,9 +11,19 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Task::all());
+        $query = Task::query();
+
+        if ($request->has('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        if ($request->has('due_date')) {
+            $query->whereDate('due_date', $request->input('due_date'));
+        }
+
+        return $query->get();
     }
 
     /**
