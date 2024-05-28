@@ -30,7 +30,9 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $task = Task::findOrFail($id);
+
+        return response()->json($task);
     }
 
     /**
